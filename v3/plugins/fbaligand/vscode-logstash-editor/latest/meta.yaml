@@ -1,0 +1,18 @@
+apiVersion: v2
+publisher: fbaligand
+name: vscode-logstash-editor
+version: latest
+type: VS Code extension
+displayName: Logstash extension for Visual Studio Code
+title: Logstash extension for Visual Studio Code
+description: This VS Code extension provides support for Logstash https://marketplace.visualstudio.com/items?itemName=fbaligand.vscode-logstash-editor
+icon: https://www.eclipse.org/che/images/logo-eclipseche.svg
+repository: https://github.com/fbaligand/vscode-logstash-editor
+category: Language
+spec:
+  containers:
+  - image: webcenter/che-remote-plugin-logstash:latest
+    memoryLimit: "512Mi"
+    name: vscode-logstash
+  extensions:
+  - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/fbaligand/vsextensions/vscode-logstash-editor/0.0.3/vspackage
