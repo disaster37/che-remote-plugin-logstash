@@ -1,4 +1,4 @@
-FROM eclipse/che-theia-endpoint-runtime:latest
+FROM alpine:3.10
 
 MAINTAINER Sebastien LANGOUREAUX <linuxworkgroup@hotmail.com>
 
