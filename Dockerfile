@@ -5,16 +5,17 @@ MAINTAINER Sebastien LANGOUREAUX <linuxworkgroup@hotmail.com>
 ARG http_proxy
 ARG https_proxy
 
-ENV \
-    USER=theia \
-    GROUP=theia \
-    USER_ID=1724 \
-    GROUP_ID=1724
+ENV HOME=/home/theia
 
 
-# Create default user for che
-RUN \
-    addgroup -g ${GROUP_ID} ${GROUP} &&\
-    adduser -s /bin/sh -G ${GROUP} -D -u ${USER_ID} ${USER}
+# Require for CHE
+# Change permissions to let any arbitrary user
+RUN mkdir /projects ${HOME} && \
+    for f in "${HOME}" "/etc/passwd" "/projects"; do \
+      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
+      chmod -R g+rwX ${f}; \
+    done
+ADD etc/entrypoint.sh /entrypoint.sh
 
-WORKDIR /projects
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD ${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}
